@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "marine-blue": "var(--v)",
+        "marine-blue": "hsl(213, 96%, 18%)",
         "light-gray": "hsl(206, 94%, 87%)",
         white: "hsl(0, 0%, 100%)",
         "purplish-blue": "hsl(243, 100%, 62%)",
