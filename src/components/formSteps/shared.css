@@ -1,0 +1,7 @@
+form {
+	display: grid;
+	gap: 2rem;
+
+	padding: 2rem;
+	border: solid 1px rgb(49, 52, 221);
+}
