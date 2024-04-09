@@ -6,7 +6,7 @@
 </script>
 
 <div class="form__navigation-control">
-	{#if currentStep === length}
+	{#if currentStep > 0 && currentStep < length}
 		<button type="button" on:click={() => handleNavigationControl('prev')}>Prev</button>
 	{/if}
 	<button {form} on:click={() => handleNavigationControl('next')}

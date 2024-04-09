@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { form_state, type RequestData } from '$lib/stores/form_state.store';
 	import Sidebar from '../components/sidebar.svelte';
-	import FormStep1 from '../components/formSteps/step1.svelte';
-	import FormStep2 from '../components/formSteps/step2.svelte';
 	import NavegationControl from '../components/navegationControl.svelte';
+	import PersonalInfoForm from '../components/forms/personalInfoForm.svelte';
+	import BillingPlanForm from '../components/forms/billingPlanForm.svelte';
+	import AddonsForm from '../components/forms/addons.svelte';
 
-	const formIDs: string[] = ['step_1', 'step_2'];
-	const pages = [FormStep1, FormStep2];
+	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm'];
+	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm];
 
 	let currentStep: number = 0;
 	let lengthSteps: number = pages.length;
@@ -50,11 +51,6 @@
 		id={formIDs[currentStep]}
 		state={$form_state}
 	/>
-	<!-- {#if currentStep === 0}
-		<FormStep1 {onSubmit} id={formIDs[currentStep]} state={$form_state} />
-	{:else if currentStep === 1}
-		<FormStep2 {onSubmit} id={formIDs[currentStep]} state={$form_state} />
-	{/if} -->
 
 	<NavegationControl
 		form={formIDs[currentStep]}
