@@ -15,6 +15,12 @@
 	--neutral-100: hsl(231, 100%, 99%);
 	--white: hsl(0, 0%, 100%);
 
+	/* Media Query */
+	--mq-sm: 576px; /* Small devices (landscape phones) */
+	--mq-md: 768px; /* Medium devices (tablets) */
+	--mq-lg: 992px; /* Large devices (desktops) */
+	--mq-xl: 1200px; /* Extra large devices (large desktops) */
+
 	font-family: var(--font-body);
 	color: var(--primary-800);
 }
@@ -30,7 +36,6 @@
 }
 
 body {
-	min-height: 100vh;
 	margin: 0;
-	background-color: var(--color-bg-1);
+	background-color: var(--neutral-200);
 }

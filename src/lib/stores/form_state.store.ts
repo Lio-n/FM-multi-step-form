@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export type PersonalInfo = {
 	name: string;
 	email_address: string;
-	phone_number: number;
+	phone_number: string;
 };
 
 export type BillingPlan = {
@@ -22,7 +22,7 @@ export type RequestData = PersonalInfo & BillingPlan & Addons;
 export const form_state = writable<RequestData>({
 	name: '',
 	email_address: '',
-	phone_number: 0,
+	phone_number: '',
 	category: 'Arcade',
 	duration: 'Monthly',
 	online_service: false,

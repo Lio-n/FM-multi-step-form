@@ -7,22 +7,53 @@
 
 <div class="form__navigation-control">
 	{#if currentStep > 0 && currentStep < length}
-		<button type="button" on:click={() => handleNavigationControl('prev')}>Prev</button>
+		<button type="button" on:click={() => handleNavigationControl('prev')} class="control__prev"
+			>Prev</button
+		>
 	{/if}
-	<button {form} on:click={() => handleNavigationControl('next')}
+	<button class="control__next" {form} on:click={() => handleNavigationControl('next')}
 		>{currentStep === length - 1 ? 'Submit' : 'Next'}</button
 	>
 </div>
 
 <style>
-	.form__navigation-control button {
-		border-radius: 2rem;
-		padding: 0.5rem 2rem;
-		background-color: rgb(68, 0, 255);
-		color: #fff;
+	.form__navigation-control {
+		background-color: var(--white);
+		border-radius: 1rem;
+		padding: 1rem;
+
+		margin: 2rem 1rem 0;
+		display: flex;
+		justify-content: space-between;
+	}
+	.control__prev,
+	.control__next {
+		color: var(--white);
+		border: none;
+
+		padding: 1rem 1.5rem;
+		border-radius: 0.5rem;
+		font-weight: 500;
+
+		font-family: inherit;
+		font-size: 1rem;
+		cursor: pointer;
+
+		background: none;
 	}
 
-	.form__navigation-control button:hover {
-		background-color: rgb(68, 0, 255, 0.5);
+	.control__prev {
+		color: var(--neutral-400);
+	}
+	.control__prev:hover {
+		color: var(--primary-800);
+		filter: brightness(1.5);
+	}
+	.control__next {
+		background-color: var(--primary-800);
+		margin-left: auto;
+	}
+	.control__next:hover {
+		filter: brightness(1.5);
 	}
 </style>

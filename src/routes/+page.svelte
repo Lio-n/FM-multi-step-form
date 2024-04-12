@@ -5,9 +5,11 @@
 	import PersonalInfoForm from '../components/forms/personalInfoForm.svelte';
 	import BillingPlanForm from '../components/forms/billingPlanForm.svelte';
 	import AddonsForm from '../components/forms/addons.svelte';
+	import FinishingUp from '../components/forms/finishingUp.svelte';
 
-	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm'];
-	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm];
+	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm', 'FinishingUp'];
+	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm, FinishingUp];
+	const sidebarContent = ['YOUR INFO', 'SELECT PLAN', 'ADD-ONS', 'SUMMARY'];
 
 	let currentStep: number = 0;
 	let lengthSteps: number = pages.length;
@@ -42,30 +44,54 @@
 	<meta name="description" content="FrontendMentor - Multi-step form challenge" />
 </svelte:head>
 
-<section>
-	<Sidebar {currentStep} {onChangeCurrentStep} length={lengthSteps} />
+<div class="container">
+	<Sidebar {currentStep} {onChangeCurrentStep} content={sidebarContent} />
 
-	<svelte:component
-		this={pages[currentStep]}
-		{onSubmit}
-		id={formIDs[currentStep]}
-		state={$form_state}
-	/>
+	<div class="content">
+		<svelte:component
+			this={pages[currentStep]}
+			{onSubmit}
+			id={formIDs[currentStep]}
+			state={$form_state}
+		/>
 
-	<NavegationControl
-		form={formIDs[currentStep]}
-		length={lengthSteps}
-		{currentStep}
-		{handleNavigationControl}
-	/>
-</section>
+		<NavegationControl
+			form={formIDs[currentStep]}
+			length={lengthSteps}
+			{currentStep}
+			{handleNavigationControl}
+		/>
+	</div>
+</div>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
+	.content {
+		position: absolute;
+		top: 7rem;
+		right: 0;
+
+		left: 0;
+		max-width: 40rem;
+		margin: 0 auto;
+
+		width: 100%;
+	}
+	@media (min-width: 992px) {
+		.container {
+			display: grid;
+			grid-template-columns: 20rem 40rem;
+			grid-template-rows: 35rem;
+
+			background-color: #fff;
+			margin: 0 auto;
+			border-radius: 1rem;
+
+			padding: 1rem;
+		}
+		.content {
+			position: relative;
+			top: 0;
+			padding: 1rem 0 1rem;
+		}
 	}
 </style>

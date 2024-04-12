@@ -1,35 +1,41 @@
 <script lang="ts">
-	import type { BillingPlan, RequestData } from '$lib/stores/form_state.store';
+	import type { Addons, RequestData } from '$lib/stores/form_state.store';
 	import './shared.css';
 
 	export let id: string;
-	export let onSubmit: (e: BillingPlan) => void;
-	export const state: BillingPlan = {
-		category: 'Arcade',
-		duration: 'Monthly'
+	export let onSubmit: (e: Addons) => void;
+	export const state: Addons = {
+		online_service: false,
+		large_storage: false,
+		customizable_profile: false
 	};
 
 	const handleSubmit = (e: SubmitEvent) => {
 		const formData = new FormData(e.target as HTMLFormElement) as Iterable<
-			[BillingPlan, FormDataEntryValue]
+			[Addons, FormDataEntryValue]
 		>;
 		const requestData: RequestData = Object.fromEntries(formData);
 
 		const isValid: boolean = validate(requestData);
 
-		console.log(`I'm billingPlanForm`, requestData);
+		console.log(`I'm AddonsForm`, requestData);
 		if (isValid) {
-			onSubmit(requestData); // this callback for main.
+			onSubmit(requestData);
 		}
 	};
 
 	const validate = (e: RequestData) => {
 		console.log(`🚀 ~ e:`, e);
+
 		return true;
 	};
 </script>
 
-<form {id} on:submit|preventDefault={handleSubmit}></form>
+<form {id} on:submit|preventDefault={handleSubmit}>
+	<div class="header">
+		<h2>Finishing Up</h2>
+	</div>
+</form>
 
 <style>
 </style>

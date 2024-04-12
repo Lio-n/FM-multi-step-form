@@ -25,6 +25,7 @@
 	};
 
 	const validate = (e: RequestData) => {
+		console.log(`🚀 ~ e:`, e);
 		return true;
 	};
 </script>
