@@ -1,15 +1,13 @@
 <script lang="ts">
-	import type { PersonalInfo } from '$lib/stores/form_state.store';
+	import { form_state, type PersonalInfo } from '$lib/stores/form_state.store';
 	import { validatePhoneNumber } from '../../validations/phone_number.validate';
 	import './shared.css';
 
 	export let id: string;
 	export let onSubmit: (e: PersonalInfo) => void;
-	export const state: PersonalInfo = {
-		name: '',
-		email_address: '',
-		phone_number: ''
-	};
+
+	$: state = $form_state;
+
 	let error = {
 		name: false,
 		email_address: false,
@@ -24,7 +22,6 @@
 
 		const isValid = validate(requestData);
 
-		console.log(`I'm personalInfoForm`, { requestData, isValid });
 		if (isValid) onSubmit(requestData);
 	};
 
@@ -48,31 +45,49 @@
 	</div>
 
 	<div class="input__group">
-		<label for="name">Name</label>
-		<input id="name" name="name" bind:value={state.name} placeholder="e.g. Stephen King" required />
+		<label class="group__label" for="name">Name</label>
+		<input
+			id="name"
+			name="name"
+			bind:value={state.name}
+			placeholder="e.g. Stephen King"
+			class="group__input"
+			class:group__input--error={error.name}
+		/>
+		{#if error.name}
+			<div class="group__error">This field is Required</div>
+		{/if}
 	</div>
 
 	<div class="input__group">
-		<label for="email_address">Email Address</label>
+		<label class="group__label" for="email_address">Email Address</label>
 		<input
 			id="email_address"
 			name="email_address"
 			bind:value={state.email_address}
 			placeholder="e.g. Stephenking@lorem.com"
 			type="email"
-			required
+			class="group__input"
+			class:group__input--error={error.email_address}
 		/>
+		{#if error.email_address}
+			<div class="group__error">This field is Required</div>
+		{/if}
 	</div>
 
 	<div class="input__group">
-		<label for="phone_number">Phone Number</label>
+		<label class="group__label" for="phone_number">Phone Number</label>
 		<input
 			id="phone_number"
 			name="phone_number"
 			bind:value={state.phone_number}
 			placeholder="e.g. +1 234 567 890"
-			required
+			class="group__input"
+			class:group__input--error={error.phone_number}
 		/>
+		{#if error.phone_number}
+			<div class="group__error">This field is Required</div>
+		{/if}
 	</div>
 </form>
 
@@ -85,13 +100,27 @@
 		margin-bottom: 1.5rem;
 		font-weight: 500;
 		color: var(--primary-800);
+
+		position: relative;
 	}
 
-	.input__group label {
+	.group__input--error {
+		border-color: #d82020 !important;
+	}
+	.group__error {
+		position: absolute;
+		font-weight: 500;
+		right: 0;
+		font-size: 0.8rem;
+		color: #d82020;
 		margin-left: 0.25rem;
 	}
 
-	.input__group input {
+	.group__label {
+		margin-left: 0.25rem;
+	}
+
+	.group__input {
 		padding: 0.75rem;
 		font-size: 1rem;
 		border: 1px solid var(--neutral-300);
@@ -101,11 +130,11 @@
 		outline: none;
 	}
 
-	.input__group input:focus {
+	.group__input:focus {
 		border-color: var(--primary-400);
 	}
 
-	.input__group input::placeholder {
+	.group__input::placeholder {
 		color: var(--neutral-400);
 	}
 </style>
