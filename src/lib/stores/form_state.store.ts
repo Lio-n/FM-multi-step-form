@@ -6,9 +6,20 @@ export type PersonalInfo = {
 	phone_number: string;
 };
 
+export enum PLAN_CATEGORY {
+	'Arcade',
+	'Advanced',
+	'Pro'
+}
+
+export enum PLAN_DURATION {
+	'Monthly',
+	'Yearly'
+}
+
 export type BillingPlan = {
-	category: 'Arcade' | 'Advanced' | 'Pro'; // Enum
-	duration: 'Monthly' | 'Yearly'; // Enum
+	category: Partial<keyof typeof PLAN_CATEGORY>; // Enum
+	duration: Partial<keyof typeof PLAN_DURATION>; // 'Monthly' | 'Yearly'
 };
 
 export type Addons = {
@@ -23,8 +34,8 @@ export const form_state = writable<RequestData>({
 	name: '',
 	email_address: '',
 	phone_number: '',
-	category: 'Arcade',
-	duration: 'Monthly',
+	category: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
+	duration: PLAN_DURATION[PLAN_DURATION.Monthly] as keyof typeof PLAN_DURATION,
 	online_service: false,
 	large_storage: false,
 	customizable_profile: false
