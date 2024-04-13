@@ -16,11 +16,14 @@
 	$: isValid = false;
 
 	const onSubmit = (e: Partial<RequestData>) => {
-		console.log(`I'm the onSubmit() function at Main-Page`);
-
-		console.log(`🚀 ~ formDataObject:`, { ...$form_state, ...e });
 		// Update the form data store
 		form_state.set({ ...$form_state, ...e });
+		if (!$form_state.name && !$form_state.email_address && !$form_state.phone_number) {
+			currentStep = 0;
+			return;
+		}
+
+		console.log(`🚀 ~ I'm the onSubmit() function at Main-Page : `, { ...$form_state });
 
 		isValid = true;
 		handleNavigationControl('next');
@@ -48,12 +51,9 @@
 	<Sidebar {currentStep} {onChangeCurrentStep} content={sidebarContent} />
 
 	<div class="content">
-		<svelte:component
-			this={pages[currentStep]}
-			{onSubmit}
-			id={formIDs[currentStep]}
-			state={$form_state}
-		/>
+		<div class="content__form">
+			<svelte:component this={pages[currentStep]} {onSubmit} id={formIDs[currentStep]} />
+		</div>
 
 		<NavegationControl
 			form={formIDs[currentStep]}
@@ -75,7 +75,9 @@
 		margin: 0 auto;
 
 		width: 100%;
+		overflow: hidden;
 	}
+
 	@media (min-width: 992px) {
 		.container {
 			display: grid;
@@ -92,6 +94,9 @@
 			position: relative;
 			top: 0;
 			padding: 1rem 0 1rem;
+		}
+		.content__form {
+			overflow: auto;
 		}
 	}
 </style>

@@ -4,7 +4,7 @@ form {
 
 	background-color: var(--white);
 	border-radius: 1rem;
-	box-shadow: 10px 10px 80px -10px #0000001a;
+	box-shadow: 10px 10px 25px -10px #0000001a;
 }
 
 @media (min-width: 992px) {
