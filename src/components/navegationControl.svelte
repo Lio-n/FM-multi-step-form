@@ -25,11 +25,14 @@
 		margin: 2rem 1rem 0;
 		display: flex;
 		justify-content: space-between;
+
+		height: fit-content;
 	}
 	.control__prev,
 	.control__next {
 		color: var(--white);
 		border: none;
+		height: fit-content;
 
 		padding: 1rem 1.5rem;
 		border-radius: 0.5rem;

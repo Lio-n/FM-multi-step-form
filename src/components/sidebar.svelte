@@ -72,7 +72,7 @@
 	@media (min-width: 992px) {
 		.sidebar {
 			background: url('../lib//images/bg-sidebar-desktop.svg') no-repeat center/cover;
-			height: inherit;
+			height: 100%;
 			width: inherit;
 
 			border-radius: 1rem;

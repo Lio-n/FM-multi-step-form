@@ -82,7 +82,7 @@
 		.container {
 			display: grid;
 			grid-template-columns: 20rem 40rem;
-			grid-template-rows: 35rem;
+			height: 90%;
 
 			background-color: #fff;
 			margin: 0 auto;
@@ -93,10 +93,17 @@
 		.content {
 			position: relative;
 			top: 0;
-			padding: 1rem 0 1rem;
+			padding-top: 1rem;
+
+			display: grid;
 		}
 		.content__form {
 			overflow: auto;
+		}
+	}
+	@media (min-height: 700px) {
+		.container {
+			height: fit-content;
 		}
 	}
 </style>

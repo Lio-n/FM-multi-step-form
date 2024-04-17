@@ -15,7 +15,7 @@
 
 	@media (min-width: 992px) {
 		main {
-			display: grid;
+			display: flex;
 			align-items: center;
 		}
 	}

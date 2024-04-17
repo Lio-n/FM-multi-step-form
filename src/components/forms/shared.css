@@ -1,6 +1,7 @@
 form {
 	margin: 0 1rem;
 	padding: 2rem;
+	overflow: auto;
 
 	background-color: var(--white);
 	border-radius: 1rem;
@@ -10,6 +11,7 @@ form {
 @media (min-width: 992px) {
 	form {
 		box-shadow: none;
+		padding-bottom: 0;
 	}
 }
 
