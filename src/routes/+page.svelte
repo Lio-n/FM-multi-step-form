@@ -7,8 +7,8 @@
 	import AddonsForm from '../components/forms/addons.svelte';
 	import FinishingUp from '../components/forms/finishingUp.svelte';
 
-	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm', 'FinishingUp'];
-	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm, FinishingUp];
+	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm'];
+	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm];
 	const sidebarContent = ['YOUR INFO', 'SELECT PLAN', 'ADD-ONS', 'SUMMARY'];
 
 	let currentStep: number = 0;
@@ -18,7 +18,11 @@
 	const onSubmit = (e: Partial<RequestData>) => {
 		// Update the form data store
 		form_state.set({ ...$form_state, ...e });
-		if (!$form_state.name && !$form_state.email_address && !$form_state.phone_number) {
+		if (
+			!$form_state.PersonalInfo.name &&
+			!$form_state.PersonalInfo.email_address &&
+			!$form_state.PersonalInfo.phone_number
+		) {
 			currentStep = 0;
 			return;
 		}
@@ -30,7 +34,7 @@
 	};
 
 	const handleNavigationControl = (nav: 'next' | 'prev') => {
-		if (isValid && nav === 'next' && currentStep < lengthSteps - 1) {
+		if (isValid && nav === 'next' && currentStep < lengthSteps) {
 			currentStep++;
 			isValid = false;
 		}
@@ -52,12 +56,16 @@
 
 	<div class="content">
 		<div class="content__form">
-			<svelte:component this={pages[currentStep]} {onSubmit} id={formIDs[currentStep]} />
+			{#if currentStep < 3}
+				<svelte:component this={pages[currentStep]} {onSubmit} id={formIDs[currentStep]} />
+			{:else}
+				<FinishingUp id={'FinishingUp'} navegateToForm={onChangeCurrentStep} />
+			{/if}
 		</div>
 
 		<NavegationControl
 			form={formIDs[currentStep]}
-			length={lengthSteps}
+			length={lengthSteps + 1}
 			{currentStep}
 			{handleNavigationControl}
 		/>

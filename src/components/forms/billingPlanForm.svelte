@@ -11,9 +11,8 @@
 	import ProIcon from '../../lib/images/icon-pro.svg';
 
 	export let id: string;
-	export let onSubmit: (e: BillingPlan) => void;
+	export let onSubmit: (e: { BillingPlan: BillingPlan }) => void;
 	$: state = $form_state; // Access the state
-	$: billingPlan = state.duration; // Monthly
 
 	const plans: {
 		title: Partial<keyof typeof PLAN_CATEGORY>;
@@ -46,13 +45,25 @@
 			HTMLInputElement & { id: Partial<keyof typeof PLAN_CATEGORY> }
 		> = (e.target as HTMLFormElement).plan;
 
-		let category: Partial<keyof typeof PLAN_CATEGORY> = state.category;
+		let billingSelected: BillingPlan = {
+			category: 'Arcade',
+			duration: 'Monthly',
+			monthly_price: plans[0].monthly_price,
+			yearly_price: plans[0].yearly_price
+		};
 
-		plansElements.forEach((item) => {
-			if (item.checked) category = item.id;
+		// The order of the elements is corresponding to their rendering order.
+		plansElements.forEach((item, i) => {
+			if (item.checked)
+				billingSelected = {
+					category: item.id,
+					duration: state.BillingPlan.duration,
+					monthly_price: plans[i].monthly_price,
+					yearly_price: plans[i].yearly_price
+				};
 		});
 
-		onSubmit({ category, duration: billingPlan });
+		onSubmit({ BillingPlan: billingSelected });
 	};
 
 	const handleBillingPlan = (e: Event) => {
@@ -63,7 +74,7 @@
 
 		plansElems?.forEach((h5) => h5.classList.remove('active'));
 
-		billingPlan = !isMonthly
+		state.BillingPlan.duration = !isMonthly
 			? (PLAN_DURATION[PLAN_DURATION.Monthly] as keyof typeof PLAN_DURATION)
 			: (PLAN_DURATION[PLAN_DURATION.Yearly] as keyof typeof PLAN_DURATION);
 
@@ -85,14 +96,14 @@
 					type="radio"
 					id={plan.title}
 					name="plan"
-					checked={state.category === plan.title}
+					checked={state.BillingPlan.category === plan.title}
 				/>
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<label class="plan__details" for={plan.title} tabindex="0"
 					><img class="details__icon" src={plan.icon} alt="arcade" />
 					<div class="details__content">
 						<h4>{plan.title}</h4>
-						{#if billingPlan === PLAN_DURATION[PLAN_DURATION.Yearly]}
+						{#if state.BillingPlan.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}
 							<p>${plan.yearly_price}/yr</p>
 							<p>2 months free</p>
 						{:else}
@@ -106,17 +117,21 @@
 
 	<div class="billing">
 		<div class="billing__toggle">
-			<h5 class:active={state.duration === PLAN_DURATION[PLAN_DURATION.Monthly]}>Monthly</h5>
+			<h5 class:active={state.BillingPlan.duration === PLAN_DURATION[PLAN_DURATION.Monthly]}>
+				Monthly
+			</h5>
 			<input
 				class="toggle__input--checkbox"
 				type="checkbox"
 				id="billing"
 				on:change={handleBillingPlan}
-				checked={state.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}
+				checked={state.BillingPlan.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}
 			/>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="billing" tabindex="0"></label>
-			<h5 class:active={state.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}>Yearly</h5>
+			<h5 class:active={state.BillingPlan.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}>
+				Yearly
+			</h5>
 		</div>
 	</div>
 </form>

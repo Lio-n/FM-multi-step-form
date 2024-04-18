@@ -1,34 +1,34 @@
 <script lang="ts">
-	import { form_state, type Addons, PLAN_DURATION } from '$lib/stores/form_state.store';
+	import { form_state, PLAN_DURATION, type Addon, ADDONS_TYPE } from '$lib/stores/form_state.store';
 	import './shared.css';
 
 	export let id: string;
-	export let onSubmit: (e: Addons) => void;
+	export let onSubmit: (e: { Addons: Addon[] }) => void;
 	$: state = $form_state; // Access the state
 
 	const addons: {
-		id: keyof Addons;
+		id: Partial<keyof typeof ADDONS_TYPE>;
 		title: string;
 		description: string;
 		monthly_price: number;
 		yearly_price: number;
 	}[] = [
 		{
-			id: 'online_service',
+			id: ADDONS_TYPE[ADDONS_TYPE.online_service] as keyof typeof ADDONS_TYPE,
 			title: 'Online service',
 			description: 'Access to multiplayer games',
 			monthly_price: 90,
 			yearly_price: 9
 		},
 		{
-			id: 'large_storage',
+			id: ADDONS_TYPE[ADDONS_TYPE.large_storage] as keyof typeof ADDONS_TYPE,
 			title: 'Larger storage',
 			description: 'Extra 1TB cloud save',
 			monthly_price: 120,
 			yearly_price: 12
 		},
 		{
-			id: 'customizable_profile',
+			id: ADDONS_TYPE[ADDONS_TYPE.customizable_profile] as keyof typeof ADDONS_TYPE,
 			title: 'Customizable profile',
 			description: 'Custom theme on your profile',
 			monthly_price: 150,
@@ -37,19 +37,22 @@
 	];
 
 	const handleSubmit = (e: SubmitEvent) => {
-		const addonsElements: NodeListOf<HTMLInputElement & { id: keyof Addons }> = (
-			e.target as HTMLFormElement
-		).addon;
+		const addonsElements: NodeListOf<HTMLInputElement & { id: Partial<keyof typeof ADDONS_TYPE> }> =
+			(e.target as HTMLFormElement).addon;
 
-		let addonsSelected: Addons = {
-			online_service: false,
-			large_storage: false,
-			customizable_profile: false
-		};
+		let addonsSelected: Addon[] = [];
 
-		addonsElements.forEach((item) => (addonsSelected[item.id] = item.checked));
+		// The order of the elements is corresponding to their rendering order.
+		addonsElements.forEach((item, i) => {
+			if (item.checked)
+				addonsSelected.push({
+					type: addons[i].id,
+					monthly_price: addons[i].monthly_price,
+					yearly_price: addons[i].yearly_price
+				});
+		});
 
-		onSubmit(addonsSelected);
+		onSubmit({ Addons: addonsSelected });
 	};
 
 	const changeCheckedVisual = (e: Event) => {
@@ -82,7 +85,7 @@
 					type="checkbox"
 					id={addon.id}
 					name="addon"
-					bind:checked={state[addon.id]}
+					checked={!!state.Addons.find((i) => i.type === addon.id)}
 				/>
 
 				<div class="addon__details">
@@ -90,7 +93,7 @@
 					<p>{addon.description}</p>
 				</div>
 
-				{#if state.duration === PLAN_DURATION[PLAN_DURATION.Monthly]}
+				{#if state.BillingPlan.duration === PLAN_DURATION[PLAN_DURATION.Monthly]}
 					<p class="addon__price">+${addon.monthly_price}/mo</p>
 				{:else}
 					<p class="addon__price">+${addon.yearly_price}/yr</p>

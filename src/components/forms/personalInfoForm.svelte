@@ -4,7 +4,7 @@
 	import './shared.css';
 
 	export let id: string;
-	export let onSubmit: (e: PersonalInfo) => void;
+	export let onSubmit: (e: { PersonalInfo: PersonalInfo }) => void;
 
 	$: state = $form_state;
 
@@ -22,7 +22,7 @@
 
 		const isValid = validate(requestData);
 
-		if (isValid) onSubmit(requestData);
+		if (isValid) onSubmit({ PersonalInfo: requestData });
 	};
 
 	const validate = (e: PersonalInfo) => {
@@ -49,7 +49,7 @@
 		<input
 			id="name"
 			name="name"
-			bind:value={state.name}
+			bind:value={state.PersonalInfo.name}
 			placeholder="e.g. Stephen King"
 			class="group__input"
 			class:group__input--error={error.name}
@@ -64,7 +64,7 @@
 		<input
 			id="email_address"
 			name="email_address"
-			bind:value={state.email_address}
+			bind:value={state.PersonalInfo.email_address}
 			placeholder="e.g. Stephenking@lorem.com"
 			type="email"
 			class="group__input"
@@ -80,7 +80,7 @@
 		<input
 			id="phone_number"
 			name="phone_number"
-			bind:value={state.phone_number}
+			bind:value={state.PersonalInfo.phone_number}
 			placeholder="e.g. +1 234 567 890"
 			class="group__input"
 			class:group__input--error={error.phone_number}

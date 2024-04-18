@@ -20,23 +20,39 @@ export enum PLAN_DURATION {
 export type BillingPlan = {
 	category: Partial<keyof typeof PLAN_CATEGORY>; // Enum
 	duration: Partial<keyof typeof PLAN_DURATION>; // 'Monthly' | 'Yearly'
+	monthly_price: number;
+	yearly_price: number;
 };
 
-export type Addons = {
-	online_service: boolean;
-	large_storage: boolean;
-	customizable_profile: boolean;
+export enum ADDONS_TYPE {
+	'online_service',
+	'large_storage',
+	'customizable_profile'
+}
+
+export type Addon = {
+	type: Partial<keyof typeof ADDONS_TYPE>;
+	monthly_price: number;
+	yearly_price: number;
 };
 
-export type RequestData = PersonalInfo & BillingPlan & Addons;
+export type RequestData = {
+	PersonalInfo: PersonalInfo;
+	BillingPlan: BillingPlan;
+	Addons: Addon[] | [];
+};
 
 export const form_state = writable<RequestData>({
-	name: '',
-	email_address: '',
-	phone_number: '',
-	category: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
-	duration: PLAN_DURATION[PLAN_DURATION.Monthly] as keyof typeof PLAN_DURATION,
-	online_service: false,
-	large_storage: false,
-	customizable_profile: false
+	PersonalInfo: {
+		name: '',
+		email_address: '',
+		phone_number: ''
+	},
+	BillingPlan: {
+		category: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
+		duration: PLAN_DURATION[PLAN_DURATION.Monthly] as keyof typeof PLAN_DURATION,
+		monthly_price: 90,
+		yearly_price: 9
+	},
+	Addons: []
 });
