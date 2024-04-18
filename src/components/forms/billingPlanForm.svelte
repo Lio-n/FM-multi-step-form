@@ -18,35 +18,37 @@
 	const plans: {
 		title: Partial<keyof typeof PLAN_CATEGORY>;
 		monthly_price: number;
-		yeraly_price: number;
+		yearly_price: number;
 		icon: string;
 	}[] = [
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
 			monthly_price: 90,
-			yeraly_price: 9,
+			yearly_price: 9,
 			icon: ArcadeIcon
 		},
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Advanced] as keyof typeof PLAN_CATEGORY,
 			monthly_price: 120,
-			yeraly_price: 12,
+			yearly_price: 12,
 			icon: AdvancedIcon
 		},
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Pro] as keyof typeof PLAN_CATEGORY,
 			monthly_price: 150,
-			yeraly_price: 15,
+			yearly_price: 15,
 			icon: ProIcon
 		}
 	];
 
 	const handleSubmit = (e: SubmitEvent) => {
-		const plans = (e.target as HTMLFormElement).plan;
+		const plansElements: NodeListOf<
+			HTMLInputElement & { id: Partial<keyof typeof PLAN_CATEGORY> }
+		> = (e.target as HTMLFormElement).plan;
 
 		let category: Partial<keyof typeof PLAN_CATEGORY> = state.category;
 
-		plans.forEach((item: { checked: boolean; id: Partial<keyof typeof PLAN_CATEGORY> }) => {
+		plansElements.forEach((item) => {
 			if (item.checked) category = item.id;
 		});
 
@@ -91,7 +93,7 @@
 					<div class="details__content">
 						<h4>{plan.title}</h4>
 						{#if billingPlan === PLAN_DURATION[PLAN_DURATION.Yearly]}
-							<p>${plan.yeraly_price}/yr</p>
+							<p>${plan.yearly_price}/yr</p>
 							<p>2 months free</p>
 						{:else}
 							<p>${plan.monthly_price}/mo</p>
@@ -104,16 +106,17 @@
 
 	<div class="billing">
 		<div class="billing__toggle">
-			<h5 class="active">Monthly</h5>
+			<h5 class:active={state.duration === PLAN_DURATION[PLAN_DURATION.Monthly]}>Monthly</h5>
 			<input
 				class="toggle__input--checkbox"
 				type="checkbox"
 				id="billing"
 				on:change={handleBillingPlan}
+				checked={state.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}
 			/>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="billing" tabindex="0"></label>
-			<h5>Yearly</h5>
+			<h5 class:active={state.duration === PLAN_DURATION[PLAN_DURATION.Yearly]}>Yearly</h5>
 		</div>
 	</div>
 </form>
