@@ -6,6 +6,7 @@
 	import BillingPlanForm from '../components/forms/billingPlanForm.svelte';
 	import AddonsForm from '../components/forms/addons.svelte';
 	import FinishingUp from '../components/forms/finishingUp.svelte';
+	import SubscriptionCartel from '../components/subscriptionCartel.svelte';
 
 	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm', 'FinishingUp'];
 	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm];
@@ -17,12 +18,6 @@
 	$: showConfirmSubscription = false;
 
 	const onSubmit = (e: Partial<RequestData>) => {
-		console.log(
-			`🚀 ~ I'm the onSubmit() function at Main-Page : `,
-			{ ...$form_state },
-			currentStep
-		);
-
 		// Update the form data store
 		form_state.set({ ...$form_state, ...e });
 		if (
@@ -35,7 +30,11 @@
 		}
 
 		isValid = true;
-		if (currentStep === lengthSteps) showConfirmSubscription = true;
+
+		if (currentStep === lengthSteps) {
+			showConfirmSubscription = true;
+			isValid = false;
+		}
 		handleNavigationControl('next');
 	};
 
@@ -62,10 +61,10 @@
 
 	<div class="content">
 		<div class="content__form">
-			{#if currentStep < 3}
+			{#if showConfirmSubscription}
+				<SubscriptionCartel />
+			{:else if currentStep < 3}
 				<svelte:component this={pages[currentStep]} {onSubmit} id={formIDs[currentStep]} />
-			{:else if showConfirmSubscription}
-				<div>HOLA {showConfirmSubscription}</div>
 			{:else}
 				<FinishingUp id={'FinishingUp'} navegateToForm={onChangeCurrentStep} {onSubmit} />
 			{/if}

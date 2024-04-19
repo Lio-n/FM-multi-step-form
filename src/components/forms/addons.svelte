@@ -142,6 +142,9 @@
 		background-color: var(--neutral-200);
 		border-color: var(--primary-400);
 	}
+	.addon__details {
+		pointer-events: none;
+	}
 	.addon__details h4 {
 		color: var(--primary-800);
 		margin-bottom: 0.25em;
