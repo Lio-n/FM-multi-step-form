@@ -7,15 +7,22 @@
 	import AddonsForm from '../components/forms/addons.svelte';
 	import FinishingUp from '../components/forms/finishingUp.svelte';
 
-	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm'];
+	const formIDs: string[] = ['PersonalInfoForm', 'BillingPlanForm', 'AddonsForm', 'FinishingUp'];
 	const pages = [PersonalInfoForm, BillingPlanForm, AddonsForm];
 	const sidebarContent = ['YOUR INFO', 'SELECT PLAN', 'ADD-ONS', 'SUMMARY'];
 
 	let currentStep: number = 0;
 	let lengthSteps: number = pages.length;
 	$: isValid = false;
+	$: showConfirmSubscription = false;
 
 	const onSubmit = (e: Partial<RequestData>) => {
+		console.log(
+			`🚀 ~ I'm the onSubmit() function at Main-Page : `,
+			{ ...$form_state },
+			currentStep
+		);
+
 		// Update the form data store
 		form_state.set({ ...$form_state, ...e });
 		if (
@@ -27,9 +34,8 @@
 			return;
 		}
 
-		console.log(`🚀 ~ I'm the onSubmit() function at Main-Page : `, { ...$form_state });
-
 		isValid = true;
+		if (currentStep === lengthSteps) showConfirmSubscription = true;
 		handleNavigationControl('next');
 	};
 
@@ -58,17 +64,21 @@
 		<div class="content__form">
 			{#if currentStep < 3}
 				<svelte:component this={pages[currentStep]} {onSubmit} id={formIDs[currentStep]} />
+			{:else if showConfirmSubscription}
+				<div>HOLA {showConfirmSubscription}</div>
 			{:else}
-				<FinishingUp id={'FinishingUp'} navegateToForm={onChangeCurrentStep} />
+				<FinishingUp id={'FinishingUp'} navegateToForm={onChangeCurrentStep} {onSubmit} />
 			{/if}
 		</div>
 
-		<NavegationControl
-			form={formIDs[currentStep]}
-			length={lengthSteps + 1}
-			{currentStep}
-			{handleNavigationControl}
-		/>
+		{#if !showConfirmSubscription}
+			<NavegationControl
+				form={formIDs[currentStep]}
+				length={lengthSteps + 1}
+				{currentStep}
+				{handleNavigationControl}
+			/>
+		{/if}
 	</div>
 </div>
 

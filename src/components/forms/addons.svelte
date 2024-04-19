@@ -17,22 +17,22 @@
 			id: ADDONS_TYPE[ADDONS_TYPE.online_service] as keyof typeof ADDONS_TYPE,
 			title: 'Online service',
 			description: 'Access to multiplayer games',
-			monthly_price: 90,
-			yearly_price: 9
+			monthly_price: 1,
+			yearly_price: 10
 		},
 		{
 			id: ADDONS_TYPE[ADDONS_TYPE.large_storage] as keyof typeof ADDONS_TYPE,
 			title: 'Larger storage',
 			description: 'Extra 1TB cloud save',
-			monthly_price: 120,
-			yearly_price: 12
+			monthly_price: 2,
+			yearly_price: 20
 		},
 		{
 			id: ADDONS_TYPE[ADDONS_TYPE.customizable_profile] as keyof typeof ADDONS_TYPE,
 			title: 'Customizable profile',
 			description: 'Custom theme on your profile',
-			monthly_price: 150,
-			yearly_price: 15
+			monthly_price: 2,
+			yearly_price: 20
 		}
 	];
 
@@ -47,6 +47,7 @@
 			if (item.checked)
 				addonsSelected.push({
 					type: addons[i].id,
+					title: addons[i].title,
 					monthly_price: addons[i].monthly_price,
 					yearly_price: addons[i].yearly_price
 				});

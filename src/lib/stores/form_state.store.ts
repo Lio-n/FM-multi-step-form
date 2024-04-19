@@ -32,6 +32,7 @@ export enum ADDONS_TYPE {
 
 export type Addon = {
 	type: Partial<keyof typeof ADDONS_TYPE>;
+	title: string;
 	monthly_price: number;
 	yearly_price: number;
 };
@@ -51,8 +52,8 @@ export const form_state = writable<RequestData>({
 	BillingPlan: {
 		category: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
 		duration: PLAN_DURATION[PLAN_DURATION.Monthly] as keyof typeof PLAN_DURATION,
-		monthly_price: 90,
-		yearly_price: 9
+		monthly_price: 9,
+		yearly_price: 90
 	},
 	Addons: []
 });

@@ -22,20 +22,20 @@
 	}[] = [
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Arcade] as keyof typeof PLAN_CATEGORY,
-			monthly_price: 90,
-			yearly_price: 9,
+			monthly_price: 9,
+			yearly_price: 90,
 			icon: ArcadeIcon
 		},
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Advanced] as keyof typeof PLAN_CATEGORY,
-			monthly_price: 120,
-			yearly_price: 12,
+			monthly_price: 12,
+			yearly_price: 120,
 			icon: AdvancedIcon
 		},
 		{
 			title: PLAN_CATEGORY[PLAN_CATEGORY.Pro] as keyof typeof PLAN_CATEGORY,
-			monthly_price: 150,
-			yearly_price: 15,
+			monthly_price: 15,
+			yearly_price: 150,
 			icon: ProIcon
 		}
 	];
@@ -139,7 +139,7 @@
 <style>
 	h5 {
 		color: var(--primary-800);
-		margin: 0 0.25em 0;
+		margin: 0 0.25em;
 	}
 
 	.plans {
@@ -147,10 +147,6 @@
 		gap: 1rem;
 
 		margin-bottom: 2rem;
-	}
-
-	.details__content > * {
-		margin: 0;
 	}
 
 	.plan__input--radio,
