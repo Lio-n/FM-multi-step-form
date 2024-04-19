@@ -1,5 +1,26 @@
 @import '@fontsource/fira-mono';
 
+@font-face {
+	font-family: 'Ubuntu';
+	font-style: normal;
+	font-weight: 700;
+	src: url('/fonts/Ubuntu-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Ubuntu';
+	font-style: normal;
+	font-weight: 500;
+	src: url('/fonts/Ubuntu-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Ubuntu';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/fonts/Ubuntu-Regular.ttf') format('truetype');
+}
+
 :root {
 	--font-body: Ubuntu, sans-serif;
 
@@ -14,12 +35,6 @@
 	--neutral-200: hsl(217, 100%, 97%);
 	--neutral-100: hsl(231, 100%, 99%);
 	--white: hsl(0, 0%, 100%);
-
-	/* Media Query */
-	--mq-sm: 576px; /* Small devices (landscape phones) */
-	--mq-md: 768px; /* Medium devices (tablets) */
-	--mq-lg: 992px; /* Large devices (desktops) */
-	--mq-xl: 1200px; /* Extra large devices (large desktops) */
 
 	font-family: var(--font-body);
 	color: var(--primary-800);
@@ -45,4 +60,13 @@ p {
 }
 h4 {
 	font-size: 1.1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+	margin: 0;
 }
