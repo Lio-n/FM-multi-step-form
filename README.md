@@ -1,38 +1,71 @@
-# create-svelte
+# Frontend Mentor - Multi Step Form solution
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/multistep-form-YVAnSdqQBJ/hub)
 
-## Creating a project
+## Table of contents
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Overview
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+### The challenge
 
-## Developing
+Your users should be able to:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- Complete each step of the sequence
+- Go back to a previous step to update their selections
+- See a summary of their selections on the final step and confirm their order
+- View the optimal layout for the interface depending on their device's screen size
+- See hover and focus states for all interactive elements on the page
+- Receive form validation messages if:
+  - A field has been missed
+  - The email address is not formatted correctly
+  - A step is submitted, but no selection has been made
 
-```bash
-npm run dev
+### Screenshot
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+<p align="center">
+  <img src="./static/design/desktop.png" alt="Desktop"/>
+</p>
 
-## Building
+<p align="center">
+  <img src="./static/design/mobile.png" alt="Mobile"/>
+</p>
 
-To create a production version of your app:
+### Links
 
-```bash
-npm run build
-```
+- Solution URL: [Github Repository : FM-multi-step-form](https://github.com/Lio-n/FM-multi-step-form)
+- Live Site URL: [Vercel]()
 
-You can preview the production build with `npm run preview`.
+## My process
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- Mobile-first workflow
+- [BEM](https://animaticss.com/articulo/que-es-bem-css/) - For transparency and clarity in HTML and CSS structure.
+- Typescript
+- [Svelte](https://svelte.dev/docs/introduction) - As framework
+
+### Continued development
+
+I need to improve with Svelte.
+
+### Useful resources
+
+- [Svelte](https://svelte.dev/docs/introduction)
+
+## Author
+
+- Website - [Portfolio](https://www.leonardofontan.tech/)
+- Frontend Mentor - [@Lio-n](https://www.frontendmentor.io/profile/Lio-n)
